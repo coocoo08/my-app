@@ -1,5 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
+import StateWithClassComponent from './StateWithClassComponent'
+import StateWithFuctionalComponent from './StateWithFuctionalComponent'
 
 /**
  * Header
@@ -102,11 +104,8 @@ const Profile = (props) => {
 export default function App() {
   return (
     <View style={styles.container}>
-      <Header title="친구" />
-      <MyProfile />
-      <Division />
-      <FriendSection />
-      <FriendList />
+      {/* <StateWithClassComponent/> */}
+      {<StateWithFuctionalComponent/>}
     </View>
   );
 }
