@@ -1,7 +1,9 @@
-import React from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, Text, Image, Button } from "react-native";
 import StateWithClassComponent from './StateWithClassComponent'
 import StateWithFuctionalComponent from './StateWithFuctionalComponent'
+import UseEffectWithClassComponent from './UseEffectWithClassComponent'
+import UseEffectWithFunctionalComponent from './UseEffectWithFunctionalComponent'
 
 /**
  * Header
@@ -102,10 +104,15 @@ const Profile = (props) => {
 // }
 
 export default function App() {
+  const [isTrue, setIsTrue] = useState(true);
   return (
     <View style={styles.container}>
       {/* <StateWithClassComponent/> */}
-      {<StateWithFuctionalComponent/>}
+      {/* <StateWithFuctionalComponent/>*/}
+      {/* {isTrue ? <UseEffectWithClassComponent/> : null} */}
+      {<UseEffectWithFunctionalComponent/>}
+
+      <Button title="toggle" onPress={() => setIsTrue(!isTrue)}></Button>
     </View>
   );
 }
