@@ -10,6 +10,7 @@ import Division from "./src/Division";
 import FriendSection from "./src/FriendSection";
 import FriendList from "./src/FriendList";
 import { useState } from "react";
+import TabBar from "./src/TabBar";
 
 const statusBarHeight = getStatusBarHeight(true);
 const bottomSpace = getBottomSpace();
@@ -18,37 +19,45 @@ const bottomSpace = getBottomSpace();
 
 export default function App() {
   const [isOpened, setIsOpened] = useState(true);
+  const [selectedTabIdx, setSelectedTabIdx] =  useState(0);
 
   const onPressArrow = () => {
     setIsOpened(!isOpened);
   }
   return (
     <View style={styles.container}>
-      <Header/>
+      <View style={{ flex: 1 , paddingHorizontal: 15}}>
+        <Header/>
 
-      <Margin height={10} />
+        <Margin height={10} />
 
-      <Profile
-        uri = {myProfile.uri}
-        name = {myProfile.name}
-        introduction = {myProfile.introduction}
-      />
+        <Profile
+          uri = {myProfile.uri}
+          name = {myProfile.name}
+          introduction = {myProfile.introduction}
+        />
 
-      <Margin height={15} />
+        <Margin height={15} />
 
-      <Division />
+        <Division />
 
-      <Margin height={12} />
+        <Margin height={12} />
 
-      <FriendSection
-        friendProfileLen={friendProfiles.length}
-        onPressArrow={onPressArrow}
-        isOpened={isOpened}
-      />
+        <FriendSection
+          friendProfileLen={friendProfiles.length}
+          onPressArrow={onPressArrow}
+          isOpened={isOpened}
+        />
 
-      <FriendList
-        data={friendProfiles}
-        isOpened={isOpened}
+        <FriendList
+          data={friendProfiles}
+          isOpened={isOpened}
+        />
+      </View>
+
+      <TabBar
+        selectedTabIdx = {selectedTabIdx}
+        setSelectedTabIdx =  {setSelectedTabIdx}
       />
     </View>
   );
@@ -58,7 +67,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: statusBarHeight,
-    paddingHorizontal: 15
+    paddingTop: statusBarHeight
   }
 });
