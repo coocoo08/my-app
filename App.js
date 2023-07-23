@@ -1,23 +1,29 @@
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
-import { StyleSheet, View, Text, Image, Button } from "react-native";
-import CustomHook from "./CustomHook";
-import StateWithClassComponent from './StateWithClassComponent'
-import StateWithFuctionalComponent from './StateWithFuctionalComponent'
-import UseEffectWithClassComponent from './UseEffectWithClassComponent'
-import UseEffectWithFunctionalComponent from './UseEffectWithFunctionalComponent'
+import { StyleSheet, View, Text, Image, Button, Platform } from "react-native";
+import Header from "./src/Header";
+import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper'
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { myProfile } from './src/data';
+import Margin from './src/Margin';
+import MyProfile from "./src/MyProfile";
+
+const statusBarHeight = getStatusBarHeight(true);
+const bottomSpace = getBottomSpace();
+
+// console.log(`${Platform.OS}: ${statusBarHeight}, ${bottomSpace}`)
 
 export default function App() {
-  const [isTrue, setIsTrue] = useState(true);
   return (
     <View style={styles.container}>
-      {/* <StateWithClassComponent/> */}
-      {/* <StateWithFuctionalComponent/>*/}
-      {/* {isTrue ? <UseEffectWithClassComponent/> : null} */}
-      {/* {<UseEffectWithFunctionalComponent/>} */}
-      {/* <Button title="toggle" onPress={() => setIsTrue(!isTrue)}></Button> */}
+      <Header/>
 
-      <CustomHook/>
+      <Margin height={10} />
+
+      <MyProfile
+        uri = {myProfile.uri}
+        name = {myProfile.name}
+        introduction = {myProfile.introduction}
+      />
     </View>
   );
 }
@@ -25,8 +31,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+    backgroundColor: '#fff',
+    paddingTop: statusBarHeight
+  }
 });
