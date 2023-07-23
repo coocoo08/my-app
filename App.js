@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, Text, Image, Button, Platform } from "react-native";
+import { StyleSheet, View, Text, Image, Button, Platform, FlatList } from "react-native";
 import Header from "./src/Header";
 import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -24,30 +24,69 @@ export default function App() {
   const onPressArrow = () => {
     setIsOpened(!isOpened);
   }
+
+  const ItemSeparatorComponent = () => <Margin height={13} />
+  const renderItem = ({ item }) => (
+    <View>
+        <Profile
+            uri = {item.uri}
+            name = {item.name}
+            introduction = {item.introduction}
+            isMe={false}
+        />
+    </View>
+  )
+  const ListHeaderComponene = () => (
+    <View style={{ backgroundColor: "white" }}>
+      <Header/>
+
+      <Margin height={10} />
+
+      <Profile
+        uri = {myProfile.uri}
+        name = {myProfile.name}
+        introduction = {myProfile.introduction}
+        isMe={true}
+      />
+
+      <Margin height={15} />
+
+      <Division />
+
+      <Margin height={12} />
+
+      <FriendSection
+        friendProfileLen={friendProfiles.length}
+        onPressArrow={onPressArrow}
+        isOpened={isOpened}
+      />
+      <Margin height={5}/>
+    </View>
+
+  )
+  const ListFooterComponent = () => <Margin height={10}/>
+
+  return(
+    <View style={styles.container}>
+      <FlatList
+        data={isOpened ? friendProfiles : [] }
+        keyExtractor={(_, index) => index}
+        contentContainerStyle={{ paddingHorizontal: 15 }}
+        stickyHeaderIndices={[0]}
+        ItemSeparatorComponent={ItemSeparatorComponent}
+        renderItem={renderItem}
+        ListHeaderComponent={ListHeaderComponene}
+        ListFooterComponent={ListFooterComponent}
+        showsVerticalScrollIndicator={false}
+      />
+      <TabBar selectedTabIdx = {selectedTabIdx} setSelectedTabIdx =  {setSelectedTabIdx} />
+    </View>
+  )
+
   return (
     <View style={styles.container}>
       <View style={{ flex: 1 , paddingHorizontal: 15}}>
-        <Header/>
-
-        <Margin height={10} />
-
-        <Profile
-          uri = {myProfile.uri}
-          name = {myProfile.name}
-          introduction = {myProfile.introduction}
-        />
-
-        <Margin height={15} />
-
-        <Division />
-
-        <Margin height={12} />
-
-        <FriendSection
-          friendProfileLen={friendProfiles.length}
-          onPressArrow={onPressArrow}
-          isOpened={isOpened}
-        />
+        
 
         <FriendList
           data={friendProfiles}
@@ -55,10 +94,7 @@ export default function App() {
         />
       </View>
 
-      <TabBar
-        selectedTabIdx = {selectedTabIdx}
-        setSelectedTabIdx =  {setSelectedTabIdx}
-      />
+
     </View>
   );
 }
