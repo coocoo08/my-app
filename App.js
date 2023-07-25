@@ -99,6 +99,7 @@ export default function App() {
   );
 }
 
+// yarn add yarn add styled-components , npm install yarn add styled-components
 const styles = StyleSheet.create({
   container: {
     flex: 1,
