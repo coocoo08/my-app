@@ -1,11 +1,25 @@
-import { SafeAreaView, StyleSheet } from 'react-native';
-import PracticeDayjs from './src/practice-dayjs';
+import { StyleSheet, Text ,View } from 'react-native';
+import { runPracticeDayjs } from './src/practice-dayjs';
+import { getCalendarColumns } from './src/util';
+import { useEffect } from 'react';
+import { StatusBar } from 'expo-status-bar';
+import dayjs from 'dayjs';
 
 export default function App() {
+  const now = dayjs();
+  const columns = getCalendarColumns(now);
+
+  useEffect(() => {
+    runPracticeDayjs();
+
+    console.log('columns', columns);
+  }, []);
+
   return (
-    <SafeAreaView style={styles.container}>
-      <PracticeDayjs />
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Text>ttt</Text>
+      <StatusBar style='auto'/>
+    </View>
   );
 }
 
